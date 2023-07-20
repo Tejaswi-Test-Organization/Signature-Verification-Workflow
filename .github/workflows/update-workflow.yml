@@ -9,9 +9,9 @@ on:
 jobs:
   update-workflow:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash --noprofile --norc -e -o pipefail
+    #defaults:
+    #  run:
+    #    shell: bash --noprofile --norc -e -o pipefail
     env:
       GH_TOKEN: ${{ github.token }}
       
