@@ -9,6 +9,9 @@ on:
 jobs:
   update-workflow:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash --noprofile --norc -e -o pipefail
     env:
       GH_TOKEN: ${{ github.token }}
       
@@ -33,7 +36,6 @@ jobs:
           repos=$(gh repo list "Tejaswi-Test-Organization" --json -q '.github/workflows/gpg-signature-verification.yml' | jq -r '.[].name')
           echo "Repos: $repos"
           echo "::set-output name=repos::$repos"
-        shell: bash
 
       - name: Update GPG signature Verification Workflow in Repos
         id: update-repos
