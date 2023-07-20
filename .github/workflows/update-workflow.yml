@@ -1,0 +1,36 @@
+name: Update Workflow in Repos
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read updated workflow.yml content
+        id: read-content
+        run: |
+          echo "::set-output name=content::$(cat gpg-signature-verification.yml)"
+        working-directory: workflows
+
+      - name: List Repositories in the GitHub organization
+        id: list-repos
+        run: |
+          echo "::set-output name=repos::$(gh repo list Tejaswi-Test-Organization -q '.github/workflows/gpg-signature-verification.yml')"
+
+      - name: Update GPG signature Verification Workflow in Repos
+        id: update-repos
+        run: |
+          for repo in ${{ steps.list-repos.outputs.repos }}; do
+            repo_name=$(echo $repo | cut -f 1)
+            echo "Updating workflow.yml in repository: $repo_name"
+            gh api repos/Tejaswi-Test-Organization/$repo_name/contents/.github/workflows/workflow.yml -F "message=Update workflow.yml" -F "content=$(echo ${{ steps.read-content.outputs.content }} | base64)" --method PUT
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
