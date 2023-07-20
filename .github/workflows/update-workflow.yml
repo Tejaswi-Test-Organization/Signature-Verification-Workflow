@@ -33,9 +33,9 @@ jobs:
       - name: List Repositories in the GitHub organization
         id: list-repos
         run: |
-          gh repo list "Tejaswi-Test-Organization" --json | jq -r '.[] | select(.default_branch != null) | .name' > repos.txt
+          gh repo list "Tejaswi-Test-Organization" --json 'name' | jq -r '.[] | select(.default_branch != null) | .name' > repos.txt
           cat repos.txt
-          repos=$(cat repos.json | jq -r '.[].name')
+          repos=$(cat repos.txt | jq -r '.[].name')
           echo "Repos: $repos"
           echo "::set-output name=repos::$repos"
 
