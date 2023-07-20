@@ -22,7 +22,9 @@ jobs:
       - name: List Repositories in the GitHub organization
         id: list-repos
         run: |
-          echo "::set-output name=repos::$(gh repo list Tejaswi-Test-Organization -q '.github/workflows/gpg-signature-verification.yml')"
+          repos=$(gh repo list Tejaswi-Test-Organization -q '.github/workflows/gpg-signature-verification.yml')
+          echo "Repos: $repos"
+          echo "::set-output name=repos::$repos"
 
       - name: Update GPG signature Verification Workflow in Repos
         id: update-repos
