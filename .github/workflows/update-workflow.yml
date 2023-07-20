@@ -33,8 +33,8 @@ jobs:
       - name: List Repositories in the GitHub organization
         id: list-repos
         run: |
-          gh repo list "Tejaswi-Test-Organization" -q '.github/workflows/gpg-signature-verification.yml' > repos.json
-          cat repos.json
+          gh repo list "Tejaswi-Test-Organization" --json | jq -r '.[] | select(.default_branch != null) | .name' > repos.txt
+          cat repos.txt
           repos=$(cat repos.json | jq -r '.[].name')
           echo "Repos: $repos"
           echo "::set-output name=repos::$repos"
