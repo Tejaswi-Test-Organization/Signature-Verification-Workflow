@@ -43,7 +43,7 @@ jobs:
           for repo in ${{ steps.list-repos.outputs.repos }}; do
             repo_name=$(echo $repo | cut -f 1)
             echo "Updating workflow.yml in repository: $repo_name"
-            gh api repos/Tejaswi-Test-Organization/$repo_name/contents/.github/workflows/workflow.yml -F "message=Update workflow.yml" -F "content=$(echo ${{ steps.read-content.outputs.content }} | base64)" --method PUT
+            gh api repos/Tejaswi-Test-Organization/$repo_name/contents/.github/workflows/workflow.yml -F "message=Update workflow.yml" -F "content=$(echo '${{ steps.read-content.outputs.content }}' | base64)" --method PUT
           done
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
