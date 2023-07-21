@@ -42,6 +42,10 @@ jobs:
         run: |
           for repo in ${{ steps.list-repos.outputs.repos }}; do
             repo_name=$(echo $repo | cut -f 1)
+            if [ "$repo_name" = "Signature-Verification-Workflow" ] || [ "$repo_name" = "GitHub-App" ]; then
+              echo "Skipping repository: $repo_name"
+              continue
+            fi
             echo "Updating workflow.yml in repository: $repo_name"
             gh api repos/Tejaswi-Test-Organization/$repo_name/contents/.github/workflows/workflow.yml -F "message=Update workflow.yml" -F "content=$(echo '${{ steps.read-content.outputs.content }}' | base64)" --method PUT
           done
