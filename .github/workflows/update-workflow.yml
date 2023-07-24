@@ -11,14 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      GH_TOKEN: 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
-      GITHUB_TOKEN: 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
+      GH_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       
     steps:
       - name: Display both the fucking tokens
         run: |
-          echo "GH_TOKEN=${GH_TOKEN}"
-          echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
+          echo "::set-env name=GH_TOKEN_SECRET::${GH_TOKEN}"
+          echo "::set-env name=GITHUB_TOKEN_SECRET::${GITHUB_TOKEN}"
+          echo "Using GH_TOKEN_SECRET: $GH_TOKEN_SECRET"
+          echo "Using GITHUB_TOKEN_SECRET: $GITHUB_TOKEN_SECRET"
           
       - name: Install jq
         run: |
