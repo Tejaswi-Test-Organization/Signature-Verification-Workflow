@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      GH_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: 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
       
     steps:
       - name: Install jq
@@ -47,5 +47,3 @@ jobs:
             echo "Updating workflow.yml in repository: $repo_name"
             gh api repos/Tejaswi-Test-Organization/$repo_name/contents/.github/workflows/workflow.yml -F "message=Update workflow.yml" -F "content=$(echo '${{ steps.read-content.outputs.content }}' | base64)" --method PUT
           done
-        env:
-          GITHUB_TOKEN: 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
