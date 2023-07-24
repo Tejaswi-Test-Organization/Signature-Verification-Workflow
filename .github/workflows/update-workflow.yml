@@ -11,9 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
+      GH_TOKEN: ${{ github.token }}
       GITHUB_TOKEN: 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
       
     steps:
+      - name: Display both the fucking tokens
+        run: |
+          echo "GH_TOKEN=${GH_TOKEN}"
+          echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
+          
       - name: Install jq
         run: |
           sudo apt-get update
