@@ -45,7 +45,7 @@ jobs:
               continue
             fi
             echo "Updating workflow.yml in repository: $repo_name"
-            gh api repos/Tejaswi-Test-Organization/$repo_name/contents/.github/workflows/workflow.yml -F "message=Update workflow.yml" -F "content=$(echo '${{ steps.read-content.outputs.content }}' | base64)" --method PUT --token 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
+            gh api repos/Tejaswi-Test-Organization/$repo_name/contents/.github/workflows/workflow.yml -F "message=Update workflow.yml" -F "content=$(echo '${{ steps.read-content.outputs.content }}' | base64)" --method PUT
           done
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
